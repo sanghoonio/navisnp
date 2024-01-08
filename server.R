@@ -8,25 +8,32 @@ library(leaflet)
 source('R/rsid.R')
 
 server <- function(input, output, session) {
-
+  
   observeEvent(input$rsid, {
     rsid <- input$rsid
-    data <- get_freq(rsid) %>% filter(!(short_name %in% c('tot', 'oth', 'afr', 'aas')))
-
-    print(data)
-    output$rsid_table <- renderTable(data$alt_af)
     
-    leafletProxy('leaflet_map', session) %>%
-      addMinicharts(
-        lng = data$long, 
-        lat = data$lat,
-        type = 'pie',
-        chartdata = data[, c('alt', 'ref')],
-        showLabels = TRUE,
-        layerId = data$full_name,
-        labelText = data$short_name
-      )
+    data <- get_rsid(rsid)
     
+    if (!is.null(data)) {
+      meta <- data$meta
+      freq <- data$freq
+      
+      output$rsid_table <- renderTable(meta %>% as.data.frame())
+      
+      leafletProxy('leaflet_map', session) %>% 
+        clearMinicharts()
+      
+      leafletProxy('leaflet_map', session) %>%
+        addMinicharts(
+          lng = freq$long, 
+          lat = freq$lat,
+          type = 'pie',
+          chartdata = freq[, c('alt', 'ref')],
+          showLabels = TRUE,
+          layerId = freq$name,
+          labelText = freq$id
+        )
+    }
     
   })
   
@@ -69,27 +76,27 @@ server <- function(input, output, session) {
       #   fillOpacity = 0.5,
       #   highlightOptions = highlightOptions(
       #     weight = 4,
-      #     color = '#666',
-      #     opacity = 1,
-      #     dashArray = '',
-      #     fillOpacity = 0.5,
-      #     bringToFront = TRUE
-      #   ),
-      #   label = labels,
-      #   labelOptions = labelOptions(
-      #     style = list('font-weight' = 'normal', padding = '3px 8px'),
-      #     textsize = '15px',
-      #     direction = 'auto'
-      #   )
-      # ) %>%
-      # addLegend(
-      #   pal = pal,
-      #   values = ~density,
-      #   opacity = 0.8,
-      #   title = NULL,
-      #   position = 'bottomright'
-      # ) %>% 
-      setView(lng = -5, lat = 22, zoom = 2.5)
+    #     color = '#666',
+    #     opacity = 1,
+    #     dashArray = '',
+    #     fillOpacity = 0.5,
+    #     bringToFront = TRUE
+    #   ),
+    #   label = labels,
+    #   labelOptions = labelOptions(
+    #     style = list('font-weight' = 'normal', padding = '3px 8px'),
+    #     textsize = '15px',
+    #     direction = 'auto'
+    #   )
+    # ) %>%
+    # addLegend(
+    #   pal = pal,
+    #   values = ~density,
+    #   opacity = 0.8,
+    #   title = NULL,
+    #   position = 'bottomright'
+    # ) %>% 
+    setView(lng = 4, lat = 22, zoom = 2.5)
   })
   
 }
