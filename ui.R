@@ -3,6 +3,7 @@ library(shinyjs)
 library(bslib)
 library(tidyverse)
 library(leaflet)
+library(shinycssloaders)
 
 ui <- fluidPage(
   
@@ -32,9 +33,8 @@ ui <- fluidPage(
       div(
         class = 'row',
         div(
-          class = 'col-md-3',
+          class = 'col-xxl-3',
           id = 'sidebar',
-          style = 'background-color:#fff; padding:20px;',
           
           div(
             style = 'text-align:center; padding: 10px 0; margin-bottom:15px;',
@@ -59,7 +59,6 @@ ui <- fluidPage(
                 class = 'rsid_button',
                 id = 'random_rsid',
                 style = 'margin-left:-5px;',
-                # icon('magnifying-glass')
                 'Random'
               ),
               tags$button(
@@ -71,14 +70,15 @@ ui <- fluidPage(
             ),
             br(),
             div(
-              tableOutput('rsid_table')
+              style = 'text-align:left; margin:30px 0 10px 0;',
+              uiOutput('rsid_meta') %>% withSpinner()
             )
           )
           
         ),
         
         div(
-          class = 'col-md-9',
+          class = 'col-xxl-9',
           style = 'text-align:center; padding:0;',
           div(
             leafletOutput('leaflet_map', width = '100%', height = '100vh')
