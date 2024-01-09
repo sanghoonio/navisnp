@@ -4,3 +4,5 @@
 .Rhistory
 .RData
 .Ruserdata
+
+app_cache/

@@ -130,10 +130,6 @@ rsid_meta <- function(rsid, meta, freq, wiki) {
       )
     )
   },
-  warning = function(w) {
-    print(w)
-    rsid_error(rsid)
-  },
   error = function(e) {
     print(e)
     rsid_error(rsid)

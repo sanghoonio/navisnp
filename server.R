@@ -4,6 +4,7 @@ library(tidyverse)
 library(data.table)
 library(httr)
 library(leaflet)
+library(leaflet.minicharts)
 library(shinycssloaders)
 
 source('R/rsid.R')
@@ -65,10 +66,6 @@ server <- function(input, output, session) {
       } else {
         showNotification('Error: rsID is invalid.', duration = 3, type = 'error')
       }
-    },
-    warning = function(w) {
-      print(w)
-      showNotification('Error: try again later.', duration = 3, type = 'error')
     },
     error = function(e) {
       print(e)
