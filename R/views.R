@@ -10,6 +10,7 @@ rsid_meta <- function(rsid, meta, freq, wiki) {
     assem <- ifelse(!is.null(wiki$snp['Assembly']), paste0(' (', wiki$snp['Assembly'], ')'), '')
     
     gene <- ifelse(meta$gene != ' - ', meta$gene, ifelse(!is.null(wiki$snp['Gene']), wiki$snp['Gene'], ' - '))
+    strand <- ifelse(!is.null(wiki$snp['StabilizedOrientation']), wiki$snp['StabilizedOrientation'], ' - ')
     
     ref <- ifelse(!is.null(freq$ref_al[[1]]), freq$ref_al[[1]], '')
     alt <- ifelse(!is.null(freq$alt_al[[1]]), freq$alt_al[[1]], '')
@@ -54,6 +55,17 @@ rsid_meta <- function(rsid, meta, freq, wiki) {
               p(gene),
             )
           ),
+          # div(
+          #   class = 'row',
+          #   div(
+          #     class = 'col-xxl-4 col-3',
+          #     p(strong('Strand: ')),
+          #   ),
+          #   div(
+          #     class = 'col-xxl-8 col-9',
+          #     p(strand),
+          #   )
+          # ),
           div(
             class = 'row',
             div(
@@ -153,7 +165,7 @@ rsid_error <- function(rsid) {
           class = 'row',
           div(
             class = 'col-xxl-4 col-3',
-            p(strong('Gene: ')),
+            p(strong('Position: ')),
           ),
           div(
             class = 'col-xxl-8 col-9',
@@ -171,6 +183,17 @@ rsid_error <- function(rsid) {
             p(''),
           )
         ),
+        # div(
+        #   class = 'row',
+        #   div(
+        #     class = 'col-xxl-4 col-3',
+        #     p(strong('Strand: ')),
+        #   ),
+        #   div(
+        #     class = 'col-xxl-8 col-9',
+        #     p(),
+        #   )
+        # ),
         div(
           class = 'row',
           div(

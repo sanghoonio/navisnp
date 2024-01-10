@@ -3,6 +3,11 @@ library(data.table)
 library(httr)
 library(SNPediaR)
 
+# helper functions ----
+count_zeros <- function(sublist) {
+  sum(sublist == 0)
+}
+
 # get rsid data from myvariant.info ----
 get_rsid <- function(rsid) {
   query_url <- paste0('https://myvariant.info/v1/variant?id=', rsid, '&fields=dbsnp,gnomad_exome,snpedia&size=1') %>% URLencode()
@@ -12,7 +17,12 @@ get_rsid <- function(rsid) {
   if (is.null(res$error)) {
     ## if res is list, reassign res to first element ----
     if (is.null(res$dbsnp) & is.null(res$gnomad_exome) & is.null(res$snpedia)) {
-      res <- res[[1]]
+      res_gnomad <- res[sapply(res, function(x) any(names(x) == 'gnomad_exome'))]
+      if (length(res_gnomad) > 1) {
+        res <- res_gnomad[[which.min(sapply(res_gnomad, function(x) count_zeros(x$gnomad_exome$ac)))]]
+      } else {
+        res <- res[[1]]
+      }
     }
     
     ## get metdata from dbsnp, gnomad exome, snpedia ----
@@ -146,6 +156,9 @@ get_wiki <- function(rsid) {
       genotype_data <- NULL
     } else {
       genotype_data <- genotype_raw %>% sapply(extractGenotypeTags)
+      if (snp_data['StabilizedOrientation'] == 'minus') {
+        colnames(genotype_data) <- colnames(genotype_data) %>% chartr('ATCG', 'TAGC', .)
+      }
     }
     
     list(snp = snp_data, genotype = genotype_data, summary = summary)
