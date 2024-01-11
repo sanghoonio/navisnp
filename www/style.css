@@ -45,6 +45,11 @@ p {
   z-index: 10;
 }
 
+#sidebar {
+  display: flex;
+  flex-direction: column;
+}
+
 #rsid_div {
   width: 300px;
   margin: 0 auto;
@@ -129,7 +134,7 @@ p {
   }
   
   #contact_map {
-    padding: 12px 0;
+    padding: 12px 0 16px 0;
     margin: 0;
     text-align: center;
     position: relative;
@@ -150,11 +155,9 @@ p {
   }
   
   #contact {
-    margin: 0;
+    margin: auto 0 -4px 0;
     text-align: center;
-    position: absolute;
-    bottom: 12px;
-    left: calc(50% - 12px);
+    width: 100%;
   }
   
   #contact_map {
@@ -162,12 +165,14 @@ p {
   }
 }
 
-#contact a {
+#contact_icons a,
+#contact_map_icons a {
   color: #000;
   text-decoration: none;
+  font-size: 1.5em;
 }
 
-#contact_map p a {
-  color: #000;
+.credits a:link {
+  font-weight: 700;
   text-decoration: none;
 }

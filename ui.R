@@ -22,7 +22,6 @@ ui <- fluidPage(
   
   tags$meta(name = 'theme-color', content = '#fff'),
   
-  
   div(
     class = 'row',
     style = 'background-color:#fff; min-height:100vh;',
@@ -78,16 +77,23 @@ ui <- fluidPage(
             )
           ),
           
-          p(
+          div(
             id = 'contact',
-            a(
-              href = 'https://github.com/sanghoonio/navisnp',
-              icon(name = 'square-github')
+            p(
+              id = 'contact_icons',
+              style = 'margin:0;',
+              a(
+                href = 'https://github.com/sanghoonio/navisnp',
+                icon(name = 'square-github')
+              ),
+              a(
+                href = 'https://www.linkedin.com/in/sanghoonio/',
+                icon(name = 'linkedin')
+              )
             ),
-            a(
-              href = 'https://www.linkedin.com/in/sanghoonio/',
-              icon(name = 'linkedin')
-            ),
+            HTML(
+              '<p class="credits" style="margin:0; font-size:12px;">Data from <a href="https://gnomad.broadinstitute.org/news/2023-11-gnomad-v4-0/">gnomAD</a>, <a href="https://www.ncbi.nlm.nih.gov/snp/docs/gsr/alfa/">ALFA</a>, <a href="https://www.ncbi.nlm.nih.gov/snp/">dbSNP</a>, and <a href="https://www.snpedia.com/index.php/SNPedia">SNPedia</a>.</p>'
+            )
           ),
           
         ),
@@ -102,6 +108,7 @@ ui <- fluidPage(
           div(
             id = 'contact_map',
             p(
+              id = 'contact_map_icons',
               style = 'margin:0;',
               a(
                 href = 'https://github.com/sanghoonio/navisnp',
@@ -111,10 +118,12 @@ ui <- fluidPage(
                 href = 'https://www.linkedin.com/in/sanghoonio/',
                 icon(name = 'linkedin')
               )
+            ),
+            HTML(
+              '<p class="credits" style="margin:0; font-size:12px;">Data from <a href="https://gnomad.broadinstitute.org/news/2023-11-gnomad-v4-0/">gnomAD</a>, <a href="https://www.ncbi.nlm.nih.gov/snp/docs/gsr/alfa/">ALFA</a>, <a href="https://www.ncbi.nlm.nih.gov/snp/">dbSNP</a>, and <a href="https://www.snpedia.com/index.php/SNPedia">SNPedia</a>.</p>'
             )
           )
         )
-        
       )
     )
   )
