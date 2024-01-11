@@ -114,7 +114,7 @@ p {
 
 @media (max-width: 1400px) {
   #leaflet_map {
-    height: 90vh !important;
+    height: 80vh !important;
   }
   
   #sidebar {
