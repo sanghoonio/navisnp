@@ -47,6 +47,9 @@ ui <- fluidPage(
           div(
             style = 'text-align:center;',
             div(
+              p(style = 'font-size:13px;', 'Enter a variant to view global allele frequencies.')
+            ),
+            div(
               id = 'rsid_div',
               
               tags$input(
@@ -73,7 +76,19 @@ ui <- fluidPage(
               style = 'text-align:left; margin:30px 0 10px 0;',
               uiOutput('rsid_meta') %>% withSpinner()
             )
-          )
+          ),
+          
+          p(
+            id = 'contact',
+            a(
+              href = 'https://github.com/sanghoonio/navisnp',
+              icon(name = 'square-github')
+            ),
+            a(
+              href = 'https://www.linkedin.com/in/sanghoonio/',
+              icon(name = 'linkedin')
+            ),
+          ),
           
         ),
         
@@ -82,9 +97,24 @@ ui <- fluidPage(
           style = 'text-align:center; padding:0;',
           div(
             leafletOutput('leaflet_map', width = '100%', height = '100vh')
+          ),
+          
+          div(
+            id = 'contact_map',
+            p(
+              style = 'margin:0;',
+              a(
+                href = 'https://github.com/sanghoonio/navisnp',
+                icon(name = 'square-github')
+              ),
+              a(
+                href = 'https://www.linkedin.com/in/sanghoonio/',
+                icon(name = 'linkedin')
+              )
+            )
           )
         )
-
+        
       )
     )
   )
